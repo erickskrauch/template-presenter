@@ -39,16 +39,20 @@ extension ViewController: WKNavigationDelegate {
         
         switch navigationAction.navigationType {
         case .linkActivated:
-            
             if let url = navigationAction.request.url {
                 if url.lastPathComponent == "close" {
                     self.navigationController?.popViewController(animated: true)
+                } else {
+                    let alert = UIAlertController(title: "Clicked link", message: url.absoluteString, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    self.present(alert, animated: false)
                 }
             }
-            
+
         default:
             break
         }
+
         decisionHandler(.allow)
     }
 }
